@@ -5,7 +5,6 @@
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "repository": "transitive-bullshit/chatgpt-api",
   "license": "MIT",
-  "type": "module",
   "source": "./src/index.ts",
   "types": "./build/index.d.ts",
   "exports": {
@@ -42,6 +41,8 @@
     "conf": "^11.0.1",
     "eventsource-parser": "^1.0.0",
     "keyv": "^4.5.2",
+    "lru-cache": "^9.1.1",
+    "nanoid": "^4.0.2",
     "p-timeout": "^6.1.1",
     "quick-lru": "^6.1.1",
     "read-pkg-up": "^9.1.0",

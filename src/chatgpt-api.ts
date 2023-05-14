@@ -1,7 +1,7 @@
 import Keyv from 'keyv'
+import { LRUCache } from 'lru-cache'
+import { nanoid } from 'nanoid'
 import pTimeout from 'p-timeout'
-import QuickLRU from 'quick-lru'
-import { v4 as uuidv4 } from 'uuid'
 
 import * as tokenizer from './tokenizer'
 import * as types from './types'
@@ -95,7 +95,7 @@ export class ChatGPTAPI {
       this._messageStore = messageStore
     } else {
       this._messageStore = new Keyv<types.ChatMessage, any>({
-        store: new QuickLRU<string, types.ChatMessage>({ maxSize: 10000 })
+        store: new LRUCache<string, types.ChatMessage>({ maxSize: 10000 })
       })
     }
 
@@ -140,7 +140,7 @@ export class ChatGPTAPI {
   ): Promise<types.ChatMessage> {
     const {
       parentMessageId,
-      messageId = uuidv4(),
+      messageId = nanoid(),
       timeoutMs,
       onProgress,
       stream = onProgress ? true : false,
@@ -173,7 +173,7 @@ export class ChatGPTAPI {
 
     const result: types.ChatMessage = {
       role: 'assistant',
-      id: uuidv4(),
+      id: nanoid(),
       conversationId,
       parentMessageId: messageId,
       text: ''

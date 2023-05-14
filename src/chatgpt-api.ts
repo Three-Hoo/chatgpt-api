@@ -1,12 +1,12 @@
 import Keyv from 'keyv'
 import { LRUCache } from 'lru-cache'
 import { nanoid } from 'nanoid'
-import pTimeout from 'p-timeout'
 
 import * as tokenizer from './tokenizer'
 import * as types from './types'
 import { fetch as globalFetch } from './fetch'
 import { fetchSSE } from './fetch-sse'
+import pTimeout from './p-timeout'
 
 const CHATGPT_MODEL = 'gpt-3.5-turbo'
 

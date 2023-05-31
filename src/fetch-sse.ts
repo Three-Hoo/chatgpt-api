@@ -24,7 +24,7 @@ export async function fetchSSE(
     }
 
     const msg = `ChatGPT error ${res.status}: ${reason}`
-    const error = new types.ChatGPTError(msg, { cause: res })
+    const error = new types.ChatGPTError(msg)
     error.statusCode = res.status
     error.statusText = res.statusText
     throw error
@@ -48,7 +48,7 @@ export async function fetchSSE(
 
     if (response?.detail?.type === 'invalid_request_error') {
       const msg = `ChatGPT error ${response.detail.message}: ${response.detail.code} (${response.detail.type})`
-      const error = new types.ChatGPTError(msg, { cause: response })
+      const error = new types.ChatGPTError(msg)
       error.statusCode = response.detail.code
       error.statusText = response.detail.message
 

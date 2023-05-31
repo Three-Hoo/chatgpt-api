@@ -180,6 +180,7 @@ export class ChatGPTAPI {
     }
 
     const responseP = new Promise<types.ChatMessage>(
+      // eslint-disable-next-line no-async-promise-executor
       async (resolve, reject) => {
         const url = `${this._apiBaseUrl}/chat/completions`
         const headers = {
@@ -260,7 +261,7 @@ export class ChatGPTAPI {
               const msg = `OpenAI error ${
                 res.status || res.statusText
               }: ${reason}`
-              const error = new types.ChatGPTError(msg, { cause: res })
+              const error = new types.ChatGPTError(msg)
               error.statusCode = res.status
               error.statusText = res.statusText
               return reject(error)
@@ -328,7 +329,7 @@ export class ChatGPTAPI {
       if (abortController) {
         // This will be called when a timeout occurs in order for us to forcibly
         // ensure that the underlying HTTP request is aborted.
-        ;(responseP as any).cancel = () => {
+        (responseP as any).cancel = () => {
           abortController.abort()
         }
       }
@@ -436,6 +437,7 @@ export class ChatGPTAPI {
       ])
 
       parentMessageId = parentMessage.parentMessageId
+    // eslint-disable-next-line no-constant-condition
     } while (true)
 
     // Use up to 4096 tokens (prompt + response), but try to leave 1000 tokens
